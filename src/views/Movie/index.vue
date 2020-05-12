@@ -33,7 +33,7 @@ export default {
         TabBar,
     },
     mounted(){
-        setInterval(() => {
+        var cancelCity=setInterval(() => {
             this.axios.get('/api/getLocation').then((res) => {
                 var msg= res.data.msg;
                 if(msg === 'ok'){
@@ -45,6 +45,9 @@ export default {
                         content:nm,
                         cancel:'取消',
                         ok:'切换定位',
+                        handleCancel(){
+                            clearInterval(cancelCity);
+                        },
                         handleOk(){
                             window.localStorage.setItem('nowNm',nm);
                             window.localStorage.setItem('nowId',id);
